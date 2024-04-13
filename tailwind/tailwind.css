@@ -1,0 +1,102 @@
+@import "./custom/file-header.css";
+/**
+ * The line above injects the WordPress file header. It needs to be first,
+ * before this comment.
+ */
+
+/**
+ * This injects custom `@font-face` rules.
+ */
+@import "./custom/fonts.css";
+
+/**
+ * This injects Tailwind's base styles and any base styles registered by
+ * plugins, then adds custom base styles.
+ */
+@import "tailwindcss/base";
+@import "./custom/base.css";
+
+/**
+ * This injects Tailwind's component classes and any component classes
+ * registered by plugins, then adds custom component classes.
+ *
+ * The `@import-glob` line imports all CSS files from the `components`
+ * directory (except for `components.css`, which is imported on the following
+ * line). This is meant to simplify the process of integrating styles from
+ * JavaScript components or WordPress plugins.
+ */
+@import "tailwindcss/components";
+@import-glob "./custom/components/**/!(components).css";
+@import "./custom/components/components.css";
+
+/**
+ * This injects Tailwind's utility classes and any utility classes registered
+ * by plugins, then adds custom utility classes.
+ */
+@import "tailwindcss/utilities";
+@import "./custom/utilities.css";
+
+@layer components {
+	.wrapper {
+        @apply max-w-6xl mx-auto;
+    }
+}
+
+@layer utilities {
+	@keyframes fadeInUp {
+		0% {
+			opacity: 0;
+			transform: translateY(50%);
+		}
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	.fadeInUp {
+		animation: fadeInUp 1s;
+	}
+	@keyframes scale {
+		0% {
+			opacity: 0;
+			transform: scale(0.5);
+		}
+		100% {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+	.scale {
+		animation: scale 1s;
+	}
+	@keyframes flip-scale-2-hor-top {
+		0% {
+			transform: translateX(0) rotateY(0);
+			transform-origin: 0% 50%;
+		}
+		100% {
+			transform: translateX(-100%) rotateY(180deg);
+			transform-origin: 100% 0%;
+		}
+		}
+	.flip-scale-2-hor-top {
+		animation: flip-scale-2-hor-top 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	}
+	@media (prefers-reduced-motion) {
+        .fadeInUp,
+        .scale {
+            animation: none;
+        }
+    }
+	@keyframes rotate-center {
+		0% {
+		  transform: rotate(0);
+		}
+		100% {
+		  transform: rotate(360deg);
+		}
+	  }
+	  .rotate-center {
+		animation: rotate-center 0.6s ease-in-out both;
+	}
+}
